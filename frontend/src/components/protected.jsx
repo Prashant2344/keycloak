@@ -1,15 +1,22 @@
 import React, { useRef, useEffect, useState } from "react";
 import axios from "axios";
 
-const Protected = () => {
+const Protected = ({
+    token
+  }) => {
   const isRun = useRef(false);
   const [data, setData] = useState([]);
 
   useEffect(() => {
     if (isRun.current) return;
     isRun.current = true;
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
 
-    axios.get("documents").then((res) => {
+    axios.get("documents", config).then((res) => {
       console.log(res.data);
       setData(res.data); // Add this line to update the state
     }).catch((err) => {

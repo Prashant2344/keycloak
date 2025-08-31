@@ -9,6 +9,7 @@ const client = new Keycloak({
 
 const useAuth = () => {
   const isRun = useRef(false);
+  const [token, setToken] = useState(null);
   const [isLogin, setLogin] = useState(false);
 
   useEffect(() => {
@@ -23,6 +24,7 @@ const useAuth = () => {
   })
   .then((authenticated) => {
     setLogin(authenticated);
+    setToken(client.token);
     if (authenticated) {
       console.log("User is authenticated ✅");
       console.log("Token:", client.token);
@@ -36,7 +38,7 @@ const useAuth = () => {
 
   }, []);
   console.log("isLogin", isLogin);
-  return isLogin;
+  return [isLogin, token];
 };
 
 export default useAuth;
