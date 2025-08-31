@@ -1,7 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import documentRoutes from "./Routes/document.js";
-
+import authenticate from "./Routes/authenticate.js";
 (async function(){
     dotenv.config();
 
@@ -13,5 +13,5 @@ import documentRoutes from "./Routes/document.js";
         console.log(`Server is running on port ${PORT}`);
     });
 
-    app.use("/documents", documentRoutes);
+    app.use("/documents", authenticate, documentRoutes);
 })();

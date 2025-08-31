@@ -6,34 +6,22 @@ let data = [
     {
         id: 1,
         title: "Document 1",
-        description: "Document 1 description"
+        description: "Document 1 description",
+        email: "prashant@3bird.nl"
     },
     {
         id: 2,
         title: "Document 2",
-        description: "Document 2 description"
-    },
-    
-    {
-        id: 3,
-        title: "Document 3",
-        description: "Document 3 description"
-    },
-    {
-        id: 4,
-        title: "Document 4",
-        description: "Document 4 description"
-    },
-    {
-        id: 5,
-        title: "Document 5",
-        description: "Document 5 description"
+        description: "Document 2 description",
+        email: "silpakarprashant@gmail.com"
     }
 ];
 
 const getDocuments = async (req, res) => {
     try {
-        const documents = await data;
+        const email = req.user;
+        console.log(email);
+        const documents = await data.filter(document => document.email === email);
         res.json(documents);
     } catch (error) {
         res.status(500).json({ message: error.message });
